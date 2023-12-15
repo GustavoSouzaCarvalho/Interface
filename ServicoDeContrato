@@ -1,0 +1,18 @@
+import java.time.LocalDate;
+public class ServicoDeContrato {
+
+    private Pagamento pagamento;
+
+    public ServicoDeContrato(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public void gerarParcelas(Contrato contrato, Integer meses) {
+        LocalDate dataAtual = contrato.getData();
+        for (int i = 1; i <= meses; i++) {
+            LocalDate dataVencimento = dataAtual.plusMonths(i);
+            Double valorParcela = contrato.getValorTotal() / meses + pagamento.juro(contrato.getValorTotal() / meses, i) + pagamento.taxaPagamento(contrato.getValorTotal() / meses);
+            contrato.getPrestações().add(new Prestação(dataVencimento, valorParcela));
+        }
+    }
+}
