@@ -1,0 +1,37 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+import java.util.List;
+
+public class Programa {
+
+    public static void main(String[] args) {
+
+        // Entrada dos dados do contrato
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Entre os dados do contrato:");
+        System.out.println("Numero: ");
+        Integer numero = Integer.parseInt(scanner.nextLine());
+        System.out.println("Data (yyyy-MM-dd): ");
+        String dataStr = scanner.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate data = LocalDate.parse(dataStr, formatter);
+        System.out.println("Valor do contrato: ");
+        Double valorTotal = Double.parseDouble(scanner.nextLine());
+        System.out.println("Numero de parcelas: ");
+        Integer numeroDeParcelas = Integer.parseInt(scanner.nextLine());
+
+        // Criação do objeto Contrato
+        Contrato contrato = new Contrato(numero, data, valorTotal);
+
+        // Geração das parcelas
+        ServicoDeContrato service = new ServicoDeContrato(new Paypal());
+        service.gerarParcelas(contrato, numeroDeParcelas);
+
+        // Impressão das parcelas
+        List<Prestação> prestações = contrato.getPrestações();
+        for (Prestação prestação : prestações) {
+            System.out.println(prestação);
+        }
+    }
+}
