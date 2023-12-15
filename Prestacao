@@ -1,0 +1,35 @@
+import java.time.LocalDate;
+public class Prestação {
+
+    private LocalDate data;
+    private Double quantia;
+
+    public Prestação(LocalDate data, Double quantia) {
+        this.data = data;
+        this.quantia = quantia;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public Double getQuantia() {
+        return quantia;
+    }
+
+    public void setQuantia(Double quantia) {
+        this.quantia = quantia;
+    }
+
+    @Override
+    public String toString() {
+        return "Prestação{" +
+                "data=" + data +
+                ", quantia=" + quantia +
+                '}';
+    }
+}
